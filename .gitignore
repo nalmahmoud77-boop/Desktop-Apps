@@ -1,0 +1,46 @@
+## .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## Publish output
+publish/
+dist/
+*.exe
+*.dll
+*.pdb
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## OS
+Thumbs.db
+.DS_Store
+
+## Secrets — never commit
+*.pkcs8.b64
+*.pfx
+*.snk
+*.p12
+signing-key*
+Keys.txt
+appsettings.*.local.json
+.env
+.env.*
+secrets.json
+
+## Local databases / user data
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
