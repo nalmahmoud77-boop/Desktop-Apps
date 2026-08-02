@@ -1,0 +1,150 @@
+<Window x:Class="MediVault.Views.LicenseActivationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MediVault — Activate License"
+        Height="640" Width="980"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Segoe UI">
+
+    <Border CornerRadius="18" Background="White">
+        <Border.Effect>
+            <DropShadowEffect Color="#1E293B" Opacity="0.25" BlurRadius="40" ShadowDepth="6" />
+        </Border.Effect>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left brand panel -->
+            <Border Grid.Column="0" CornerRadius="18,0,0,18" Background="{StaticResource LoginGradient}">
+                <Grid Margin="48,40">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Border Width="44" Height="44" CornerRadius="12" Background="#22D3EE">
+                            <TextBlock Text="❤" Foreground="#0F172A" FontSize="22" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="MediVault" Foreground="White" FontSize="22" FontWeight="Bold" />
+                            <TextBlock Text="License Activation" Foreground="#A5B4FC" FontSize="11" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,40,0,0">
+                        <TextBlock Text="Activate to begin."
+                                   Foreground="White" FontSize="42" FontWeight="Bold"
+                                   TextWrapping="Wrap" LineHeight="48" />
+                        <TextBlock Text="Enter the license key you received with your purchase. The license is bound to this PC after activation."
+                                   Foreground="#CBD5F5" FontSize="15"
+                                   TextWrapping="Wrap" Margin="0,18,0,0" LineHeight="24" MaxWidth="420" HorizontalAlignment="Left" />
+
+                        <StackPanel Margin="0,32,0,0">
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <Border Width="22" Height="22" CornerRadius="11" Background="#22D3EE" VerticalAlignment="Center">
+                                    <TextBlock Text="1" Foreground="#0F172A" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="Monthly — 30 days of access" Foreground="#E2E8F0" Margin="12,0,0,0" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <Border Width="22" Height="22" CornerRadius="11" Background="#22D3EE" VerticalAlignment="Center">
+                                    <TextBlock Text="2" Foreground="#0F172A" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="Yearly — 12 months of access" Foreground="#E2E8F0" Margin="12,0,0,0" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                <Border Width="22" Height="22" CornerRadius="11" Background="#22D3EE" VerticalAlignment="Center">
+                                    <TextBlock Text="∞" Foreground="#0F172A" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="Lifetime — never expires" Foreground="#E2E8F0" Margin="12,0,0,0" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Text="© MediVault 2026" Foreground="#94A3B8" FontSize="11" />
+                </Grid>
+            </Border>
+
+            <!-- Right activation panel -->
+            <Grid Grid.Column="1" Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Window controls -->
+                <Grid Grid.Row="0" Margin="0,12,12,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="Transparent" Height="34" MouseLeftButtonDown="Header_MouseLeftButtonDown" Cursor="SizeAll" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Panel.ZIndex="2">
+                        <Button x:Name="MinimizeBtn" Style="{StaticResource GhostIconButton}" Content="—" Click="MinimizeBtn_Click" />
+                        <Button x:Name="CloseBtn" Style="{StaticResource GhostIconButton}" Content="✕" Click="CloseBtn_Click" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="50,0,50,40" VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="Activate MediVault" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
+                        <TextBlock Text="Paste your license key to unlock the app on this PC" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,28" />
+
+                        <TextBlock Text="LICENSE KEY" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="90"
+                                 VerticalScrollBarVisibility="Auto"
+                                 FontFamily="Consolas"
+                                 FontSize="12"
+                                 Margin="0,0,0,16" />
+
+                        <TextBlock Text="{Binding Error}"
+                                   Foreground="{StaticResource DangerBrush}"
+                                   FontSize="12"
+                                   Margin="0,0,0,8"
+                                   TextWrapping="Wrap"
+                                   Visibility="{Binding Error, Converter={StaticResource StringToVis}}" />
+
+                        <TextBlock Text="{Binding Success}"
+                                   Foreground="{StaticResource SuccessBrush}"
+                                   FontSize="12"
+                                   Margin="0,0,0,8"
+                                   TextWrapping="Wrap"
+                                   Visibility="{Binding Success, Converter={StaticResource StringToVis}}" />
+
+                        <Button Content="Activate"
+                                Style="{StaticResource PrimaryButton}"
+                                Command="{Binding ActivateCommand}"
+                                Margin="0,12,0,0" />
+
+                        <Border Margin="0,28,0,0" Background="#F8FAFC" CornerRadius="10" Padding="16">
+                            <StackPanel>
+                                <TextBlock Text="This machine" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" />
+                                <TextBlock Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="0,4,0,0"
+                                           TextWrapping="Wrap">
+                                    <Run Text="Fingerprint: " />
+                                    <Run FontFamily="Consolas" Text="{Binding MachineId, Mode=OneWay}" />
+                                </TextBlock>
+                                <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap"
+                                           Text="Your license is bound to this PC after activation. Contact support to transfer it to another machine." />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>
