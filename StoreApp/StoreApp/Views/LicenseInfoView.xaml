@@ -1,0 +1,150 @@
+<UserControl x:Class="StoreApp.Views.LicenseInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+
+        <!-- Header card -->
+        <Border CornerRadius="14" Background="{StaticResource HeroGradient}" Padding="24" Margin="0,0,0,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Border Width="56" Height="56" CornerRadius="14" Background="#33FFFFFF" VerticalAlignment="Center">
+                    <TextBlock Text="🔑" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding PlanName}" Foreground="White" FontSize="22" FontWeight="Bold" />
+                    <TextBlock Text="{Binding StatusText}" Foreground="#E0E7FF" FontSize="13" Margin="0,3,0,0" />
+                </StackPanel>
+                <Border Grid.Column="2" Background="#33FFFFFF" CornerRadius="10" Padding="14,10" VerticalAlignment="Center"
+                        Visibility="{Binding HasLicense, Converter={StaticResource BoolToVis}}">
+                    <StackPanel>
+                        <TextBlock Text="REMAINING" Foreground="#E0E7FF" FontSize="10" FontWeight="Bold" />
+                        <TextBlock Text="{Binding DaysRemainingText}" Foreground="White" FontWeight="Bold" FontSize="18" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- No-license empty state -->
+        <Border Style="{StaticResource Card}" Margin="0,0,0,16"
+                Visibility="{Binding HasNoLicense, Converter={StaticResource BoolToVis}}">
+            <StackPanel>
+                <TextBlock Text="No license active" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock Text="Restart the app to enter a license key."
+                           FontSize="12" Foreground="{StaticResource MutedBrush}" Margin="0,4,0,0" TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <!-- Details card (visible when activated) -->
+        <Border Style="{StaticResource Card}" Margin="0,0,0,16"
+                Visibility="{Binding HasLicense, Converter={StaticResource BoolToVis}}">
+            <StackPanel>
+                <TextBlock Text="License details" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12" />
+
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Plan" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                    <TextBlock Grid.Column="1" Text="{Binding PlanName}" FontSize="13" FontWeight="SemiBold" />
+                </Grid>
+
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Issued" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                    <TextBlock Grid.Column="1" Text="{Binding IssuedAt}" FontSize="13" />
+                </Grid>
+
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Expires" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                    <TextBlock Grid.Column="1" Text="{Binding ExpiresAt}" FontSize="13" />
+                </Grid>
+
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Status" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                    <TextBlock Grid.Column="1" Text="{Binding StatusText}" FontSize="13" />
+                </Grid>
+
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Days remaining" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                    <TextBlock Grid.Column="1" Text="{Binding DaysRemainingText}" FontSize="13" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- License key card -->
+        <Border Style="{StaticResource Card}" Margin="0,0,0,16"
+                Visibility="{Binding HasLicense, Converter={StaticResource BoolToVis}}">
+            <StackPanel>
+                <TextBlock Text="License key" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,4" />
+                <TextBlock Text="Keep this key safe — you'll need it to re-activate on another device."
+                           FontSize="12" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,12" TextWrapping="Wrap" />
+
+                <Border Background="#F8FAFC" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding DisplayedKey, Mode=OneWay}" IsReadOnly="True" BorderThickness="0"
+                                 Background="Transparent" FontFamily="Consolas" FontSize="13" VerticalAlignment="Center" />
+                        <Button Grid.Column="1" Content="{Binding ToggleKeyText}" Command="{Binding ToggleKeyVisibilityCommand}"
+                                Background="Transparent" BorderThickness="0" Foreground="{StaticResource PrimaryBrush}"
+                                Cursor="Hand" Padding="8,4" />
+                        <Button Grid.Column="2" Content="Copy" Command="{Binding CopyKeyCommand}"
+                                Style="{StaticResource SecondaryButton}" Padding="14,6" Margin="6,0,0,0" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Info banner -->
+        <Border Padding="12" CornerRadius="8" Background="#ECFDF5" Margin="0,0,0,16">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding InfoMessage, Converter={StaticResource NotNullToVis}}" Value="Visible">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <TextBlock Text="{Binding InfoMessage}" Foreground="#065F46" FontSize="12" TextWrapping="Wrap" />
+        </Border>
+
+        <!-- Actions -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource SecondaryButton}" Padding="16,10" Margin="0,0,8,0"
+                    Command="{Binding DeactivateCommand}"
+                    Visibility="{Binding HasLicense, Converter={StaticResource BoolToVis}}">
+                <TextBlock Text="Deactivate" Foreground="{StaticResource DangerBrush}" />
+            </Button>
+        </StackPanel>
+
+        <TextBlock Text="License is encrypted (AES-GCM) and bound to this machine."
+                   FontSize="11" Foreground="{StaticResource MutedBrush}"
+                   HorizontalAlignment="Center" Margin="0,16,0,0" />
+
+    </StackPanel>
+</UserControl>

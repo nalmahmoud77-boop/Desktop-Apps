@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>StoreApp.Licensing</RootNamespace>
+    <AssemblyName>StoreApp.Licensing</AssemblyName>
+  </PropertyGroup>
+
+</Project>

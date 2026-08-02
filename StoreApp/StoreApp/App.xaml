@@ -1,0 +1,22 @@
+<Application x:Class="StoreApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:StoreApp"
+             xmlns:helpers="clr-namespace:StoreApp.Helpers">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <helpers:BoolToVisibilityConverter x:Key="BoolToVis" />
+            <helpers:BoolToVisibilityConverter x:Key="BoolToVisInverted" Invert="True" />
+            <helpers:NullToVisibilityConverter x:Key="NullToVis" />
+            <helpers:NullToVisibilityConverter x:Key="NotNullToVis" Invert="True" />
+            <helpers:GreaterThanZeroToVisibilityConverter x:Key="GtZeroToVis" />
+            <helpers:OrderStatusToBrushConverter x:Key="OrderStatusBrush" />
+            <helpers:ProductStatusToBrushConverter x:Key="ProductStatusBrush" />
+            <helpers:StringToImageConverter x:Key="UrlToImage" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
