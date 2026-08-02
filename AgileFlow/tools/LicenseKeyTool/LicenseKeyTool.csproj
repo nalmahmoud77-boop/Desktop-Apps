@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>AgileFlow.LicenseKeyTool</RootNamespace>
+    <AssemblyName>LicenseKeyTool</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+  </ItemGroup>
+
+  <!-- Ship the vendor signing key next to the binary so the tool finds it via
+       AppContext.BaseDirectory. Condition avoids a build error before keygen. -->
+  <ItemGroup Condition="Exists('signing-key.pkcs8.b64')">
+    <None Include="signing-key.pkcs8.b64" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
